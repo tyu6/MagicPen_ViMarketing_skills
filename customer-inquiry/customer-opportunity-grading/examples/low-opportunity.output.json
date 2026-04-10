@@ -1,0 +1,181 @@
+{
+  "input_file": "C:\\Users\\n0thing\\.openclaw\\workspace\\skills\\customer-inquiry\\customer-opportunity-grading\\examples\\low-opportunity.md",
+  "detected_encoding": "utf-8-sig",
+  "customer_opportunity_level": "low",
+  "level_zh": "低机会客户",
+  "confidence": 62,
+  "score_breakdown": {
+    "total_score": 0,
+    "level_mapping": {
+      "high": ">= 70 且采购意愿/需求明确度达到高机会门槛，且无严重阻塞",
+      "medium": "35-69 或存在兴趣但预算/时间/决策链未补齐",
+      "low": "< 35，或出现明确拒绝、无预算、无计划等严重阻塞"
+    },
+    "dimensions": {
+      "need_clarity": {
+        "label": "需求明确度",
+        "score": 0,
+        "max_score": 15,
+        "meaning": "客户需求、痛点和使用场景的明确程度",
+        "positive_hits": [],
+        "negative_hits": []
+      },
+      "purchase_intent": {
+        "label": "采购意愿",
+        "score": 0,
+        "max_score": 20,
+        "meaning": "采购、试用、PoC、报价、合同等推进意愿",
+        "positive_hits": [],
+        "negative_hits": [
+          {
+            "signal_id": "purchase_rejected",
+            "label": "明确拒绝当前推进",
+            "points": 10,
+            "evidence": [
+              "L4: 客户：先不用约演示了，有需要我再联系你。"
+            ]
+          }
+        ]
+      },
+      "time_urgency": {
+        "label": "时间紧迫度",
+        "score": 0,
+        "max_score": 10,
+        "meaning": "评估、采购、上线或试点的时间窗口",
+        "positive_hits": [],
+        "negative_hits": []
+      },
+      "budget_resources": {
+        "label": "预算/资源信号",
+        "score": 0,
+        "max_score": 10,
+        "meaning": "预算、价格讨论和资源投入承诺",
+        "positive_hits": [],
+        "negative_hits": [
+          {
+            "signal_id": "budget_negative",
+            "label": "预算信号偏负面",
+            "points": 6,
+            "evidence": [
+              "L3: 客户：今年暂时没有预算，项目也没排期。"
+            ]
+          }
+        ]
+      },
+      "decision_info": {
+        "label": "决策信息完整度",
+        "score": 0,
+        "max_score": 10,
+        "meaning": "决策人、采购、法务、技术负责人和审批流程",
+        "positive_hits": [],
+        "negative_hits": []
+      },
+      "engagement": {
+        "label": "互动积极度",
+        "score": 0,
+        "max_score": 10,
+        "meaning": "回复和推进动作的积极程度",
+        "positive_hits": [
+          {
+            "signal_id": "engagement_responsive",
+            "label": "回复积极且配合",
+            "points": 3,
+            "evidence": [
+              "L1: 客户：先随便了解一下，有资料可以发我。"
+            ]
+          }
+        ],
+        "negative_hits": [
+          {
+            "signal_id": "engagement_cooling",
+            "label": "推进意愿降温",
+            "points": 5,
+            "evidence": [
+              "L4: 客户：先不用约演示了，有需要我再联系你。"
+            ]
+          }
+        ]
+      },
+      "implementation_feasibility": {
+        "label": "落地可行性",
+        "score": 0,
+        "max_score": 10,
+        "meaning": "部署、集成、实施和技术配合情况",
+        "positive_hits": [],
+        "negative_hits": []
+      },
+      "risk_objection_strength": {
+        "label": "风险/异议强度",
+        "score": 0,
+        "max_score": 15,
+        "meaning": "反向风险维度，分数越低表示阻力越强",
+        "positive_hits": [],
+        "negative_hits": [
+          {
+            "signal_id": "risk_no_plan",
+            "label": "明确暂无计划",
+            "points": 8,
+            "evidence": [
+              "L3: 客户：今年暂时没有预算，项目也没排期。"
+            ]
+          },
+          {
+            "signal_id": "risk_budget_blocker",
+            "label": "预算成为明确阻塞",
+            "points": 8,
+            "evidence": [
+              "L3: 客户：今年暂时没有预算，项目也没排期。"
+            ]
+          }
+        ]
+      }
+    },
+    "bonuses": [],
+    "penalties": [
+      {
+        "label": "客户明确拒绝当前推进",
+        "points": 15,
+        "evidence": [
+          "L4: 客户：先不用约演示了，有需要我再联系你。"
+        ]
+      },
+      {
+        "label": "无计划且预算受阻",
+        "points": 10,
+        "evidence": [
+          "L3: 客户：今年暂时没有预算，项目也没排期。",
+          "L3: 客户：今年暂时没有预算，项目也没排期。"
+        ]
+      },
+      {
+        "label": "信息不足",
+        "points": 8,
+        "evidence": []
+      }
+    ]
+  },
+  "evidence": [
+    "L4: 客户：先不用约演示了，有需要我再联系你。",
+    "L3: 客户：今年暂时没有预算，项目也没排期。",
+    "L1: 客户：先随便了解一下，有资料可以发我。"
+  ],
+  "reasoning": "信息不足，判断需保守；主要风险包括：客户明确表示暂无计划或排期；预算不足或预算审批受阻。",
+  "next_action": "先补充客户原话或更多轮次对话，再确认预算、时间和决策链。",
+  "risk_flags": [
+    "客户明确表示暂无计划或排期",
+    "预算不足或预算审批受阻",
+    "客户明确拒绝当前推进动作",
+    "互动积极度下降，存在明显降温信号",
+    "预算/资源未明确",
+    "决策链条不清晰",
+    "时间计划不明确",
+    "信息不足"
+  ],
+  "analysis_meta": {
+    "line_count": 4,
+    "customer_line_count": 3,
+    "unknown_speaker_line_count": 0,
+    "matched_signal_count": 6,
+    "information_insufficient": true
+  }
+}

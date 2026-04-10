@@ -1,0 +1,52 @@
+{
+  "records": [
+    {
+      "customer_name": "李晨",
+      "gender_guess": "",
+      "phone": "",
+      "mobile": "13800138000",
+      "email": "lichen@zhilian.com",
+      "wechat": "lichen_ops",
+      "company_name": "上海智联制造有限公司",
+      "company_short_name": "上海智联制造",
+      "department": "主要给华东客服中心",
+      "job_title": "采购经理",
+      "city": "上海",
+      "province": "上海",
+      "industry": "制造",
+      "customer_type": "企业",
+      "source_channel": "",
+      "product_interest": "客服质检、工单系统",
+      "use_case": "我们想看客服质检和工单系统，主要给华东客服中心用，现在人工抽检效率太低",
+      "pain_points": "我们想看客服质检和工单系统，主要给华东客服中心用，现在人工抽检效率太低",
+      "budget_info": "这个月要做方案评估，下周如果合适可以安排演示和报价，预算先按 20 万左右看",
+      "timeline_info": "这个月要做方案评估，下周如果合适可以安排演示和报价，预算先按 20 万左右看",
+      "decision_maker": "我是上海智联制造有限公司的采购经理李晨，手机号 13800138000，邮箱 lichen@zhilian.com，微信 lichen_ops；老板和法务会一起看，技术负责人在杭州，后面我拉他进群",
+      "current_status": "报价中",
+      "next_step": "跟进报价反馈，确认决策人、采购流程和最终时间表。",
+      "opportunity_level": "high",
+      "confidence": 94,
+      "last_contact_time": "2026-04-08 09:17",
+      "communication_summary": "客户身份信息已部分识别；关注 客服质检、工单系统；场景: 我们想看客服质检和工单系统，主要给华东客服中心用，现在人工抽检效率太低；当前状态: 报价中；预算: 这个月要做方案评估，下周如果合适可以安排演示和报价，预算先按 20 万左右看；时间: 这个月要做方案评估，下周如果合适可以安排演示和报价，预算先按 20 万左右看",
+      "key_quotes": [
+        "我是上海智联制造有限公司的采购经理李晨，手机号 13800138000，邮箱 lichen@zhilian.com，微信 lichen_ops",
+        "这个月要做方案评估，下周如果合适可以安排演示和报价，预算先按 20 万左右看"
+      ],
+      "risk_flags": [
+        "存在字段冲突或拆分歧义"
+      ],
+      "remarks": "job_title 存在候选冲突: 采购经理 | 老板；city 存在候选冲突: 上海 | 杭州；检测编码: utf-8-sig",
+      "source_file": "complete-enterprise-dialogue.md",
+      "extraction_time": "2026-04-08 14:50:54",
+      "raw_text_length": 310,
+      "missing_fields": [
+        "gender_guess",
+        "phone",
+        "source_channel",
+        "next_step",
+        "opportunity_level",
+        "remarks"
+      ]
+    }
+  ]
+}
