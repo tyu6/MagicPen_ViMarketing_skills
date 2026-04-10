@@ -1,0 +1,63 @@
+{
+  "records": [
+    {
+      "customer_name": "",
+      "gender_guess": "",
+      "phone": "0512-88886666",
+      "mobile": "",
+      "email": "",
+      "wechat": "wx_ops_2024",
+      "company_name": "我这边是苏州一家做仓储物流的公司",
+      "company_short_name": "我这边是苏州一家做仓储物流的",
+      "department": "可能下个月内部",
+      "job_title": "",
+      "city": "苏州",
+      "province": "",
+      "industry": "物流",
+      "customer_type": "企业",
+      "source_channel": "",
+      "product_interest": "工单系统、CRM",
+      "use_case": "你好，我这边是苏州一家做仓储物流的公司，先想了解下你们的工单系统和 CRM",
+      "pain_points": "",
+      "budget_info": "我们在比较几家方案，预算还没定，可能下个月内部再看一下，如果继续推进我再拉技术同事",
+      "timeline_info": "",
+      "decision_maker": "",
+      "current_status": "方案评估",
+      "next_step": "安排演示或 PoC，补齐预算、时间表和技术对接人。",
+      "opportunity_level": "medium",
+      "confidence": 71,
+      "last_contact_time": "",
+      "communication_summary": "客户身份信息已部分识别；关注 工单系统、CRM；场景: 你好，我这边是苏州一家做仓储物流的公司，先想了解下你们的工单系统和 CRM；当前状态: 方案评估；预算: 我们在比较几家方案，预算还没定，可能下个月内部再看一下，如果继续推进我再拉技术同事",
+      "key_quotes": [
+        "你好，我这边是苏州一家做仓储物流的公司，先想了解下你们的工单系统和 CRM",
+        "微信是 wx_ops_2024，电话 0512-88886666",
+        "我们在比较几家方案，预算还没定，可能下个月内部再看一下，如果继续推进我再拉技术同事"
+      ],
+      "risk_flags": [
+        "时间计划未明确",
+        "决策信息不足",
+        "存在字段冲突或拆分歧义"
+      ],
+      "remarks": "仅识别到昵称或弱姓名线索: 客户；检测编码: utf-8-sig",
+      "source_file": "medium-partial-dialogue.txt",
+      "extraction_time": "2026-04-08 14:50:54",
+      "raw_text_length": 142,
+      "missing_fields": [
+        "customer_name",
+        "gender_guess",
+        "mobile",
+        "email",
+        "job_title",
+        "province",
+        "source_channel",
+        "pain_points",
+        "timeline_info",
+        "decision_maker",
+        "next_step",
+        "opportunity_level",
+        "last_contact_time",
+        "remarks"
+      ]
+    }
+  ]
+}

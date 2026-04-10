@@ -1,0 +1,163 @@
+{
+  "input_file": "C:\\Users\\n0thing\\.openclaw\\workspace\\skills\\customer-inquiry\\customer-opportunity-grading\\examples\\medium-opportunity.txt",
+  "detected_encoding": "utf-8-sig",
+  "customer_opportunity_level": "medium",
+  "level_zh": "中机会客户",
+  "confidence": 75,
+  "score_breakdown": {
+    "total_score": 37,
+    "level_mapping": {
+      "high": ">= 70 且采购意愿/需求明确度达到高机会门槛，且无严重阻塞",
+      "medium": "35-69 或存在兴趣但预算/时间/决策链未补齐",
+      "low": "< 35，或出现明确拒绝、无预算、无计划等严重阻塞"
+    },
+    "dimensions": {
+      "need_clarity": {
+        "label": "需求明确度",
+        "score": 9,
+        "max_score": 15,
+        "meaning": "客户需求、痛点和使用场景的明确程度",
+        "positive_hits": [
+          {
+            "signal_id": "need_use_case",
+            "label": "明确需求或使用场景",
+            "points": 5,
+            "evidence": [
+              "L1: 客户：我们在看几家方案，想了解下你们能不能做工单系统和企业微信对接。"
+            ]
+          },
+          {
+            "signal_id": "need_specific_feature",
+            "label": "明确功能或集成要求",
+            "points": 4,
+            "evidence": [
+              "L1: 客户：我们在看几家方案，想了解下你们能不能做工单系统和企业微信对接。"
+            ]
+          }
+        ],
+        "negative_hits": []
+      },
+      "purchase_intent": {
+        "label": "采购意愿",
+        "score": 6,
+        "max_score": 20,
+        "meaning": "采购、试用、PoC、报价、合同等推进意愿",
+        "positive_hits": [
+          {
+            "signal_id": "purchase_next_step",
+            "label": "提出实质推进动作",
+            "points": 6,
+            "evidence": [
+              "L4: 客户：后面如果内部继续推进，我再拉上技术同事一起聊。"
+            ]
+          }
+        ],
+        "negative_hits": []
+      },
+      "time_urgency": {
+        "label": "时间紧迫度",
+        "score": 0,
+        "max_score": 10,
+        "meaning": "评估、采购、上线或试点的时间窗口",
+        "positive_hits": [],
+        "negative_hits": []
+      },
+      "budget_resources": {
+        "label": "预算/资源信号",
+        "score": 0,
+        "max_score": 10,
+        "meaning": "预算、价格讨论和资源投入承诺",
+        "positive_hits": [],
+        "negative_hits": [
+          {
+            "signal_id": "budget_unclear",
+            "label": "预算尚未明确",
+            "points": 4,
+            "evidence": [
+              "L3: 客户：目前还在调研阶段，预算和时间都没定，先发份产品资料和案例吧。"
+            ]
+          }
+        ]
+      },
+      "decision_info": {
+        "label": "决策信息完整度",
+        "score": 0,
+        "max_score": 10,
+        "meaning": "决策人、采购、法务、技术负责人和审批流程",
+        "positive_hits": [],
+        "negative_hits": []
+      },
+      "engagement": {
+        "label": "互动积极度",
+        "score": 5,
+        "max_score": 10,
+        "meaning": "回复和推进动作的积极程度",
+        "positive_hits": [
+          {
+            "signal_id": "engagement_active",
+            "label": "客户主动推动沟通",
+            "points": 5,
+            "evidence": [
+              "L3: 客户：目前还在调研阶段，预算和时间都没定，先发份产品资料和案例吧。"
+            ]
+          }
+        ],
+        "negative_hits": []
+      },
+      "implementation_feasibility": {
+        "label": "落地可行性",
+        "score": 9,
+        "max_score": 10,
+        "meaning": "部署、集成、实施和技术配合情况",
+        "positive_hits": [
+          {
+            "signal_id": "implementation_stack",
+            "label": "部署或集成条件明确",
+            "points": 5,
+            "evidence": [
+              "L1: 客户：我们在看几家方案，想了解下你们能不能做工单系统和企业微信对接。"
+            ]
+          },
+          {
+            "signal_id": "implementation_owner",
+            "label": "实施和交付路径明确",
+            "points": 4,
+            "evidence": [
+              "L4: 客户：后面如果内部继续推进，我再拉上技术同事一起聊。"
+            ]
+          }
+        ],
+        "negative_hits": []
+      },
+      "risk_objection_strength": {
+        "label": "风险/异议强度",
+        "score": 8,
+        "max_score": 15,
+        "meaning": "反向风险维度，分数越低表示阻力越强",
+        "positive_hits": [],
+        "negative_hits": []
+      }
+    },
+    "bonuses": [],
+    "penalties": []
+  },
+  "evidence": [
+    "L4: 客户：后面如果内部继续推进，我再拉上技术同事一起聊。",
+    "L1: 客户：我们在看几家方案，想了解下你们能不能做工单系统和企业微信对接。",
+    "L3: 客户：目前还在调研阶段，预算和时间都没定，先发份产品资料和案例吧。"
+  ],
+  "reasoning": "需求和使用场景较清晰；主要风险包括：预算/资源未明确；决策链条不清晰。",
+  "next_action": "继续资格确认，优先补齐预算、时间表、决策链，并争取一次短会换取明确下一步。",
+  "risk_flags": [
+    "预算/资源未明确",
+    "决策链条不清晰",
+    "时间计划不明确"
+  ],
+  "analysis_meta": {
+    "line_count": 4,
+    "customer_line_count": 3,
+    "unknown_speaker_line_count": 0,
+    "matched_signal_count": 7,
+    "information_insufficient": false
+  }
+}

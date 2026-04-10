@@ -1,0 +1,536 @@
+{
+  "dimensions": {
+    "need_clarity": {
+      "label": "需求明确度",
+      "max_score": 15,
+      "base_score": 0,
+      "meaning": "客户需求、痛点和使用场景的明确程度"
+    },
+    "purchase_intent": {
+      "label": "采购意愿",
+      "max_score": 20,
+      "base_score": 0,
+      "meaning": "采购、试用、PoC、报价、合同等推进意愿"
+    },
+    "time_urgency": {
+      "label": "时间紧迫度",
+      "max_score": 10,
+      "base_score": 0,
+      "meaning": "评估、采购、上线或试点的时间窗口"
+    },
+    "budget_resources": {
+      "label": "预算/资源信号",
+      "max_score": 10,
+      "base_score": 0,
+      "meaning": "预算、价格讨论和资源投入承诺"
+    },
+    "decision_info": {
+      "label": "决策信息完整度",
+      "max_score": 10,
+      "base_score": 0,
+      "meaning": "决策人、采购、法务、技术负责人和审批流程"
+    },
+    "engagement": {
+      "label": "互动积极度",
+      "max_score": 10,
+      "base_score": 0,
+      "meaning": "回复和推进动作的积极程度"
+    },
+    "implementation_feasibility": {
+      "label": "落地可行性",
+      "max_score": 10,
+      "base_score": 0,
+      "meaning": "部署、集成、实施和技术配合情况"
+    },
+    "risk_objection_strength": {
+      "label": "风险/异议强度",
+      "max_score": 15,
+      "base_score": 8,
+      "meaning": "反向风险维度，分数越低表示阻力越强"
+    }
+  },
+  "speaker_markers": {
+    "customer": [
+      "客户",
+      "甲方",
+      "采购",
+      "用户",
+      "对方",
+      "客户方",
+      "技术负责人",
+      "负责人",
+      "老板",
+      "总监"
+    ],
+    "seller": [
+      "销售",
+      "商务",
+      "顾问",
+      "客服",
+      "售前",
+      "运营",
+      "AE",
+      "BD",
+      "我方"
+    ]
+  },
+  "system_message_patterns": [
+    "撤回了一条消息",
+    "加入了群聊",
+    "退出了群聊",
+    "以上为.*聊天记录",
+    "消息已发出",
+    "系统消息",
+    "^图片$",
+    "^语音$",
+    "^视频$",
+    "^文件$"
+  ],
+  "signals": [
+    {
+      "id": "need_use_case",
+      "dimension": "need_clarity",
+      "direction": "positive",
+      "points": 5,
+      "max_hits": 2,
+      "speaker": "customer_or_unknown",
+      "label": "明确需求或使用场景",
+      "patterns": [
+        "我们.*(要|想|计划).*(上线|部署|对接|替换|采购|试用)",
+        "(痛点|问题)是",
+        "用于",
+        "希望.*(支持|实现|解决)",
+        "需要.*(接口|对接|集成|部署|报表|私有化|功能)"
+      ]
+    },
+    {
+      "id": "need_specific_feature",
+      "dimension": "need_clarity",
+      "direction": "positive",
+      "points": 4,
+      "max_hits": 2,
+      "speaker": "customer_or_unknown",
+      "label": "明确功能或集成要求",
+      "patterns": [
+        "能否.*(对接|集成|导出|同步|私有化|定制)",
+        "是否支持",
+        "(企业微信|钉钉|Salesforce|CRM|ERP|SSO|API)"
+      ]
+    },
+    {
+      "id": "purchase_explicit",
+      "dimension": "purchase_intent",
+      "direction": "positive",
+      "points": 10,
+      "max_hits": 2,
+      "speaker": "customer_or_unknown",
+      "label": "明确采购/试用/合作意向",
+      "patterns": [
+        "采购",
+        "合作",
+        "报价",
+        "合同",
+        "招标",
+        "POC",
+        "试用",
+        "demo",
+        "下单",
+        "购买"
+      ]
+    },
+    {
+      "id": "purchase_next_step",
+      "dimension": "purchase_intent",
+      "direction": "positive",
+      "points": 6,
+      "max_hits": 2,
+      "speaker": "customer_or_unknown",
+      "label": "提出实质推进动作",
+      "patterns": [
+        "发.*方案",
+        "安排.*(会议|电话|PoC|POC)",
+        "推进",
+        "评估",
+        "实施计划",
+        "交付周期"
+      ]
+    },
+    {
+      "id": "timeline_present",
+      "dimension": "time_urgency",
+      "direction": "positive",
+      "points": 5,
+      "max_hits": 2,
+      "speaker": "customer_or_unknown",
+      "label": "出现明确时间窗口",
+      "patterns": [
+        "这周",
+        "本周",
+        "下周",
+        "本月",
+        "月底",
+        "下月",
+        "近期",
+        "尽快",
+        "上线",
+        "Q[1-4]"
+      ]
+    },
+    {
+      "id": "timeline_specific_deadline",
+      "dimension": "time_urgency",
+      "direction": "positive",
+      "points": 4,
+      "max_hits": 1,
+      "speaker": "customer_or_unknown",
+      "label": "出现具体截止或时长",
+      "patterns": [
+        "\\d+月\\d+日",
+        "\\d+月\\d+号",
+        "\\d+天内",
+        "\\d+周内",
+        "上线时间"
+      ]
+    },
+    {
+      "id": "budget_explicit",
+      "dimension": "budget_resources",
+      "direction": "positive",
+      "points": 6,
+      "max_hits": 2,
+      "speaker": "customer_or_unknown",
+      "label": "预算或价格信号明确",
+      "patterns": [
+        "预算.*(万|w|W|元|范围|可以|能批|充足)",
+        "费用.*(多少|范围|预算|接受)",
+        "多少钱",
+        "价格区间",
+        "成本",
+        "\\d+\\s*[万Ww]"
+      ]
+    },
+    {
+      "id": "resource_commitment",
+      "dimension": "budget_resources",
+      "direction": "positive",
+      "points": 4,
+      "max_hits": 2,
+      "speaker": "customer_or_unknown",
+      "label": "内部资源或人力承诺",
+      "patterns": [
+        "安排.*(接口人|技术同学|技术同事|负责人|同事)",
+        "可以配",
+        "可以申请",
+        "预算能批",
+        "我们这边可以"
+      ]
+    },
+    {
+      "id": "budget_unclear",
+      "dimension": "budget_resources",
+      "direction": "negative",
+      "points": 4,
+      "max_hits": 2,
+      "speaker": "customer_or_unknown",
+      "label": "预算尚未明确",
+      "patterns": [
+        "预算.*没定",
+        "预算未定",
+        "预算不明确",
+        "还没预算",
+        "预算后面再看"
+      ]
+    },
+    {
+      "id": "decision_maker_present",
+      "dimension": "decision_info",
+      "direction": "positive",
+      "points": 6,
+      "max_hits": 2,
+      "speaker": "customer_or_unknown",
+      "label": "决策人或关键角色出现",
+      "patterns": [
+        "负责人",
+        "采购",
+        "法务",
+        "老板",
+        "总监",
+        "技术负责人",
+        "审批",
+        "决策"
+      ]
+    },
+    {
+      "id": "decision_process_present",
+      "dimension": "decision_info",
+      "direction": "positive",
+      "points": 4,
+      "max_hits": 2,
+      "speaker": "customer_or_unknown",
+      "label": "采购或审批流程出现",
+      "patterns": [
+        "流程",
+        "审批",
+        "比价",
+        "招采",
+        "PO",
+        "付款",
+        "合同"
+      ]
+    },
+    {
+      "id": "engagement_active",
+      "dimension": "engagement",
+      "direction": "positive",
+      "points": 5,
+      "max_hits": 2,
+      "speaker": "customer_or_unknown",
+      "label": "客户主动推动沟通",
+      "patterns": [
+        "方便.*(今天|明天|本周)",
+        "拉个群",
+        "电话聊",
+        "辛苦发",
+        "麻烦发",
+        "先发",
+        "发份",
+        "什么时候",
+        "还有个问题",
+        "再确认"
+      ]
+    },
+    {
+      "id": "engagement_responsive",
+      "dimension": "engagement",
+      "direction": "positive",
+      "points": 3,
+      "max_hits": 2,
+      "speaker": "customer_or_unknown",
+      "label": "回复积极且配合",
+      "patterns": [
+        "收到",
+        "好的",
+        "没问题",
+        "可以",
+        "尽快"
+      ]
+    },
+    {
+      "id": "implementation_stack",
+      "dimension": "implementation_feasibility",
+      "direction": "positive",
+      "points": 5,
+      "max_hits": 2,
+      "speaker": "customer_or_unknown",
+      "label": "部署或集成条件明确",
+      "patterns": [
+        "API",
+        "接口",
+        "SSO",
+        "私有化",
+        "本地部署",
+        "云上",
+        "对接",
+        "测试环境"
+      ]
+    },
+    {
+      "id": "implementation_owner",
+      "dimension": "implementation_feasibility",
+      "direction": "positive",
+      "points": 4,
+      "max_hits": 2,
+      "speaker": "customer_or_unknown",
+      "label": "实施和交付路径明确",
+      "patterns": [
+        "技术同学",
+        "技术同事",
+        "实施",
+        "交付",
+        "上线",
+        "运维",
+        "售后",
+        "培训",
+        "技术对接"
+      ]
+    },
+    {
+      "id": "risk_relief_commitment",
+      "dimension": "risk_objection_strength",
+      "direction": "positive",
+      "points": 5,
+      "max_hits": 2,
+      "speaker": "customer_or_unknown",
+      "label": "内部认可或配合意愿较高",
+      "patterns": [
+        "可以配合",
+        "内部认可",
+        "优先级高",
+        "先推进",
+        "愿意试用",
+        "可以安排"
+      ]
+    },
+    {
+      "id": "vague_browsing",
+      "dimension": "need_clarity",
+      "direction": "negative",
+      "points": 4,
+      "max_hits": 2,
+      "speaker": "customer_or_unknown",
+      "label": "仅泛泛了解",
+      "patterns": [
+        "先了解一下",
+        "随便看看",
+        "参考下",
+        "简单了解",
+        "发点资料"
+      ]
+    },
+    {
+      "id": "timeline_unclear",
+      "dimension": "time_urgency",
+      "direction": "negative",
+      "points": 3,
+      "max_hits": 2,
+      "speaker": "customer_or_unknown",
+      "label": "时间计划不明确",
+      "patterns": [
+        "时间未定",
+        "看情况",
+        "先调研",
+        "再说",
+        "后面再看"
+      ]
+    },
+    {
+      "id": "decision_unclear",
+      "dimension": "decision_info",
+      "direction": "negative",
+      "points": 4,
+      "max_hits": 2,
+      "speaker": "customer_or_unknown",
+      "label": "决策链不清晰",
+      "patterns": [
+        "我先看看",
+        "还要问问",
+        "不确定谁负责",
+        "内部再说",
+        "领导还没定"
+      ]
+    },
+    {
+      "id": "engagement_cooling",
+      "dimension": "engagement",
+      "direction": "negative",
+      "points": 5,
+      "max_hits": 2,
+      "speaker": "customer_or_unknown",
+      "label": "推进意愿降温",
+      "patterns": [
+        "有需要再联系",
+        "先这样",
+        "以后再说",
+        "暂时不用",
+        "不用约"
+      ]
+    },
+    {
+      "id": "implementation_blocker",
+      "dimension": "implementation_feasibility",
+      "direction": "negative",
+      "points": 6,
+      "max_hits": 2,
+      "speaker": "customer_or_unknown",
+      "label": "存在明显技术或合规阻塞",
+      "patterns": [
+        "不能上云",
+        "不让接外部接口",
+        "IT不通过",
+        "安全过不了",
+        "合规过不了"
+      ]
+    },
+    {
+      "id": "risk_no_plan",
+      "dimension": "risk_objection_strength",
+      "direction": "negative",
+      "points": 8,
+      "max_hits": 2,
+      "speaker": "customer_or_unknown",
+      "label": "明确暂无计划",
+      "patterns": [
+        "暂无计划",
+        "暂时不考虑",
+        "先不推进",
+        "短期没有",
+        "今年不做",
+        "项目也没排期"
+      ]
+    },
+    {
+      "id": "risk_budget_blocker",
+      "dimension": "risk_objection_strength",
+      "direction": "negative",
+      "points": 8,
+      "max_hits": 2,
+      "speaker": "customer_or_unknown",
+      "label": "预算成为明确阻塞",
+      "patterns": [
+        "没预算",
+        "没有预算",
+        "预算不足",
+        "预算已经用完",
+        "费用太高",
+        "批不下来"
+      ]
+    },
+    {
+      "id": "budget_negative",
+      "dimension": "budget_resources",
+      "direction": "negative",
+      "points": 6,
+      "max_hits": 2,
+      "speaker": "customer_or_unknown",
+      "label": "预算信号偏负面",
+      "patterns": [
+        "没预算",
+        "没有预算",
+        "预算不足",
+        "预算已经用完",
+        "太贵"
+      ]
+    },
+    {
+      "id": "purchase_rejected",
+      "dimension": "purchase_intent",
+      "direction": "negative",
+      "points": 10,
+      "max_hits": 2,
+      "speaker": "customer_or_unknown",
+      "label": "明确拒绝当前推进",
+      "patterns": [
+        "不需要",
+        "不考虑",
+        "先不用",
+        "不用约演示",
+        "不推进"
+      ]
+    },
+    {
+      "id": "free_consulting_risk",
+      "dimension": "risk_objection_strength",
+      "direction": "negative",
+      "points": 6,
+      "max_hits": 2,
+      "speaker": "customer_or_unknown",
+      "label": "偏向收集信息或白拿方案",
+      "patterns": [
+        "先把完整方案.*发来",
+        "先给个详细方案",
+        "只是收集资料",
+        "先发所有报价和方案"
+      ]
+    }
+  ]
+}
