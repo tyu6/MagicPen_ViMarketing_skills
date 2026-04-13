@@ -1,0 +1,4 @@
+interface:
+  display_name: "客户机会分级"
+  short_description: "分析客户对话并输出 high/medium/low 机会等级与依据"
+  default_prompt: "Use the OpenClaw skill \"CustomerInfo Classification\" to analyze a sales or support conversation file and return a structured opportunity assessment."

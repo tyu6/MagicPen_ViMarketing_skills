@@ -1,4 +1,4 @@
-# Multi-Language Marketing Copy Skill
+# MarketingCopy Writing Skill
 
 ## Overview
 
@@ -11,7 +11,7 @@ It supports both text-based prompting and image-based generation.
 ## Directory Structure
 
 ```text
-Multi-language marketing copy Skill/
+MarketingCopy Writing Skill/
 |
 +-- SKILL.md                           # Main Skill definition file
 +-- README.md                          # Chinese / bilingual usage guide
