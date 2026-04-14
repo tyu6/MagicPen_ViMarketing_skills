@@ -1,5 +1,5 @@
 ---
-name: marketing-i18n
+name: MarketingCopy Writing
 description: Generate professional multi-language marketing copy for furniture e-commerce from text prompts or product images, supporting Indonesian, English, and Chinese. Outputs include e-commerce titles, selling points, product details, social media posts, poster copy, and promotional scripts tailored for Indonesian market.
 version: 1.1.0
 user-invocable: true
@@ -25,7 +25,7 @@ metadata:
     - Chinese
 ---
 
-# Multi-Language Marketing Copy Skill
+# MarketingCopy Writing Skill
 
 ## Purpose
 
@@ -147,7 +147,7 @@ For each target language, generate:
 
 ```
 ================================================================================
-                    marketing-i18n
+                    MarketingCopy Writing
 ================================================================================
 
 PRODUCT: [Product Name]

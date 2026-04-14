@@ -1,6 +1,6 @@
 # Customer Dialogue Extraction Skill
 
-This folder contains a practical Codex skill for extracting customer information from conversation transcripts and exporting CRM-friendly outputs.
+This folder contains a practical OpenClaw skill for extracting customer information from conversation transcripts and exporting CRM-friendly outputs.
 
 ## Files
 

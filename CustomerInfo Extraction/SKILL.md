@@ -1,9 +1,9 @@
 ---
-name: customere2e-info
-description: Extract structured customer profile data from sales, customer-service, account-management, or business-development conversation transcripts and export JSON plus Excel (.xlsx) for CRM import. Use when Codex receives a path to a dialogue file such as .md, .txt, .log, .csv, .json, or another readable text source containing Chinese or mixed-language customer conversations, and needs conservative field extraction, confidence scoring, missing-field tracking, Markdown review output, or batch export.
+name: CustomerInfo Extraction
+description: Extract structured customer profile data from sales, customer-service, account-management, or business-development conversation transcripts and export JSON plus Excel (.xlsx) for CRM import. Use when OpenClaw receives a path to a dialogue file such as .md, .txt, .log, .csv, .json, or another readable text source containing Chinese or mixed-language customer conversations, and needs conservative field extraction, confidence scoring, missing-field tracking, Markdown review output, or batch export.
 ---
 
-# Customer Dialogue To Excel
+# CustomerInfo Extraction
 
 Use this skill to convert customer conversation records into structured customer records for CRM import.
 

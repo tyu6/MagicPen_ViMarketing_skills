@@ -1,6 +1,6 @@
 ---
-name: customer-opportunity-grading
-description: Analyze sales, business-development, support, or account-management conversation transcripts and grade the customer opportunity as high, medium, or low with structured evidence. Use when Codex receives a path to a dialogue file such as .md, .txt, .doc, .docx, .pdf, .log, .csv, .json, or another readable text file containing Chinese or mixed-language customer conversations, and needs an explainable JSON assessment plus an optional Markdown summary for downstream programs or humans.
+name: CustomerInfo Classification
+description: Analyze sales, business-development, support, or account-management conversation transcripts and grade the customer opportunity as high, medium, or low with structured evidence. Use when OpenClaw receives a path to a dialogue file such as .md, .txt, .doc, .docx, .pdf, .log, .csv, .json, or another readable text file containing Chinese or mixed-language customer conversations, and needs an explainable JSON assessment plus an optional Markdown summary for downstream programs or humans.
 ---
 
 # Customer Opportunity Grading

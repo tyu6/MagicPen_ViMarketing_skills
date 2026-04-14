@@ -1,4 +1,4 @@
-# Multi-Language Marketing Copy Skill
+# MarketingCopy Writing Skill
 
 ## 多语言营销文案自动生成 Skill
 
@@ -15,7 +15,7 @@ This Skill is designed for Chinese furniture companies expanding to the Indonesi
 ## 目录结构 Directory Structure
 
 ```
-Multi-language marketing copy Skill/
+MarketingCopy Writing Skill/
 │
 ├── SKILL.md                                    # Skill 主定义文件
 │                                               # Main Skill definition file
