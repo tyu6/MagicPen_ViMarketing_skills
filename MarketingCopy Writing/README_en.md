@@ -258,7 +258,7 @@ Recommended input:
 ```json
 {
   "input_mode": "image",
-  "reference_image": "./assets/sofa.jpg",
+  "reference_image": "D:/path/to/product.jpg",
   "image_focus": "rattan texture and cozy tropical atmosphere",
   "visual_notes": "target Indonesia, premium but warm tone",
   "target_platform": "Instagram"
@@ -271,6 +271,7 @@ Image mode adds:
 - Inferred style and mood from the image
 - Multilingual copy generation without changing the existing text mode
 - Safer claim handling when materials or dimensions are not fully visible
+- A user-provided attachment, local path, or image URL is expected; the repository does not ship with bundled sample images
 
 ---
 
