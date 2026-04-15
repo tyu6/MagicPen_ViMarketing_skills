@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+*.pyo
+
+*.xlsx
+customer_export_*.json
+customer_export_*.md
+customer_export_*.xlsx
+*.opportunity.json
+*.opportunity.md

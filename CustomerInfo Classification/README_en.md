@@ -1,42 +1,43 @@
 # CustomerInfo Classification Skill
 
-This directory is the `CustomerInfo Classification` workspace. The main OpenClaw skill is located in the `CustomerInfo Classification/` subfolder inside this directory.
+This directory is now the skill root for `CustomerInfo Classification`.
 
 ## Install
 
-If this folder is already inside your OpenClaw skills workspace, no extra installation is required.
-
-If you want OpenClaw to discover it from the default global skill path, copy the `CustomerInfo Classification/` subfolder that contains `SKILL.md` to:
+Copy this directory directly into your OpenClaw skills path:
 
 - Windows: `%USERPROFILE%\\.openclaw\\skills\\CustomerInfo Classification`
 
+The skill is self-contained and does not require a sibling `shared/` directory.
+
 ## Use
 
-After entering the `CustomerInfo Classification/` subfolder inside this directory, run the analyzer directly:
+Run the analyzer from the skill root:
 
 ```bash
-cd "CustomerInfo Classification"
 python scripts/analyze_customer_opportunity.py examples/high-opportunity.md
 ```
 
-Generate both JSON and Markdown files:
+Generate both JSON and Markdown outputs:
 
 ```bash
-cd "CustomerInfo Classification"
 python scripts/analyze_customer_opportunity.py examples/high-opportunity.md --format both --output examples/high-opportunity.output.json --markdown-output examples/high-opportunity.output.md
 ```
 
-## Contents
+## Structure
 
-- `CustomerInfo Classification/SKILL.md`: OpenClaw skill instructions and few-shot guidance
-- `CustomerInfo Classification/scripts/analyze_customer_opportunity.py`: CLI analyzer
-- `CustomerInfo Classification/config/opportunity_rules.json`: adjustable signal and weighting rules
-- `CustomerInfo Classification/references/scoring-rubric.md`: scoring dimension reference
-- `CustomerInfo Classification/examples/`: sample inputs and outputs
+- `SKILL.md`: OpenClaw skill instructions and few-shot guidance
+- `agents/openai.yaml`: skill display metadata
+- `scripts/analyze_customer_opportunity.py`: CLI analyzer
+- `scripts/document_input.py`: bundled document-reading helpers
+- `config/opportunity_rules.json`: adjustable signal and weighting rules
+- `references/scoring-rubric.md`: scoring dimension reference
+- `examples/`: sample inputs and outputs
 
 ## Notes
 
 - Default output is JSON.
 - Markdown summary is supported through `--format markdown` or `--markdown-output`.
-- Input now supports `.md`, `.txt`, `.doc`, `.docx`, and text-based `.pdf` files.
-- The script is optimized for Chinese customer dialogue, but it also tolerates mixed English terms like `PoC`, `SSO`, and `API`.
+- Input supports `.md`, `.txt`, `.doc`, `.docx`, and text-based `.pdf` files.
+- The analyzer is optimized for Chinese customer dialogue and tolerates mixed terms like `PoC`, `SSO`, and `API`.
+- `shared/` and `tmp-*` directories in this workspace are not required for installing this skill.

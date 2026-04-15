@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """Analyze customer conversation files and grade sales opportunity."""
 
 from __future__ import annotations
@@ -10,11 +10,7 @@ import sys
 from pathlib import Path
 from typing import Dict, List, Tuple
 
-WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
-if str(WORKSPACE_ROOT) not in sys.path:
-    sys.path.insert(0, str(WORKSPACE_ROOT))
-
-from shared.document_input import DEFAULT_ENCODINGS, DocumentReadError, read_document_text
+from document_input import DEFAULT_ENCODINGS, DocumentReadError, read_document_text
 
 
 ENCODINGS = list(DEFAULT_ENCODINGS)
@@ -30,32 +26,11 @@ def load_rules() -> dict:
         with config_path.open("r", encoding="utf-8") as handle:
             return json.load(handle)
     except FileNotFoundError as exc:
-        raise SystemExit(f"规则文件不存在: {config_path}") from exc
+        raise SystemExit(f"瑙勫垯鏂囦欢涓嶅瓨鍦? {config_path}") from exc
     except json.JSONDecodeError as exc:
-        raise SystemExit(f"规则文件不是合法 JSON: {config_path} ({exc})") from exc
+        raise SystemExit(f"瑙勫垯鏂囦欢涓嶆槸鍚堟硶 JSON: {config_path} ({exc})") from exc
 
 
-def read_text_file(path: Path) -> Tuple[str, str]:
-    try:
-        raw = path.read_bytes()
-    except FileNotFoundError as exc:
-        raise SystemExit(f"输入文件不存在: {path}") from exc
-    except OSError as exc:
-        raise SystemExit(f"无法读取输入文件: {path} ({exc})") from exc
-
-    if not raw:
-        raise SystemExit(f"输入文件为空: {path}")
-
-    if raw.count(b"\x00") / max(len(raw), 1) > 0.02:
-        raise SystemExit(f"文件看起来像二进制，无法按文本分析: {path}")
-
-    for encoding in ENCODINGS:
-        try:
-            return raw.decode(encoding), encoding
-        except UnicodeDecodeError:
-            continue
-
-    raise SystemExit(f"无法用常见编码解码文本: {path}")
 
 
 def read_text_file(path: Path) -> Tuple[str, str]:
@@ -104,7 +79,7 @@ def preprocess_lines(text: str, rules: dict) -> List[dict]:
 
         speaker = "unknown"
         content = line
-        speaker_match = re.match(r"^(?P<label>[^:：]{1,24})[:：]\s*(?P<content>.+)$", line)
+        speaker_match = re.match("^(?P<label>.+?)[:\uFF1A]\\s*(?P<content>.+)$", line)
         if speaker_match:
             label = speaker_match.group("label").strip()
             content = speaker_match.group("content").strip()
@@ -251,7 +226,7 @@ def compute_bonus_and_penalty(matched: Dict[str, List[dict]]) -> Tuple[List[dict
     if "purchase_rejected" in matched:
         penalties.append(
             {
-                "label": "客户明确拒绝当前推进",
+                "label": "瀹㈡埛鏄庣‘鎷掔粷褰撳墠鎺ㄨ繘",
                 "points": 15,
                 "evidence": [first_evidence("purchase_rejected")],
             }
@@ -260,7 +235,7 @@ def compute_bonus_and_penalty(matched: Dict[str, List[dict]]) -> Tuple[List[dict
     if "risk_no_plan" in matched and "risk_budget_blocker" in matched:
         penalties.append(
             {
-                "label": "无计划且预算受阻",
+                "label": "鏃犺鍒掍笖棰勭畻鍙楅樆",
                 "points": 10,
                 "evidence": [first_evidence("risk_no_plan"), first_evidence("risk_budget_blocker")],
             }
@@ -269,7 +244,7 @@ def compute_bonus_and_penalty(matched: Dict[str, List[dict]]) -> Tuple[List[dict
     if "free_consulting_risk" in matched:
         penalties.append(
             {
-                "label": "偏向收集信息而非真实推进",
+                "label": "鍋忓悜鏀堕泦淇℃伅鑰岄潪鐪熷疄鎺ㄨ繘",
                 "points": 8,
                 "evidence": [first_evidence("free_consulting_risk")],
             }
@@ -277,7 +252,7 @@ def compute_bonus_and_penalty(matched: Dict[str, List[dict]]) -> Tuple[List[dict
     if "implementation_blocker" in matched:
         penalties.append(
             {
-                "label": "存在技术或合规阻塞",
+                "label": "瀛樺湪鎶€鏈垨鍚堣闃诲",
                 "points": 8,
                 "evidence": [first_evidence("implementation_blocker")],
             }
@@ -330,13 +305,13 @@ def build_risk_flags(breakdown: dict, matched: Dict[str, List[dict]], insufficie
             flags.append(label)
 
     if breakdown["budget_resources"]["score"] <= 3:
-        flags.append("预算/资源未明确")
+        flags.append("预算或资源未明确")
     if breakdown["decision_info"]["score"] <= 3:
         flags.append("决策链条不清晰")
     if breakdown["time_urgency"]["score"] <= 3:
         flags.append("时间计划不明确")
     if insufficient:
-        flags.append("信息不足")
+        flags.append("淇℃伅涓嶈冻")
 
     deduped = []
     for flag in flags:
@@ -403,7 +378,7 @@ def build_reasoning(level: str, breakdown: dict, risk_flags: List[str], insuffic
     if breakdown["budget_resources"]["score"] >= 5:
         pieces.append("预算或资源信号较明确")
     if insufficient:
-        pieces.append("信息不足，判断需保守")
+        pieces.append("信息不足，判断需保持保守")
     if risk_flags and level != "high":
         pieces.append(f"主要风险包括：{'；'.join(risk_flags[:2])}")
 
@@ -427,11 +402,11 @@ def build_next_action(level: str, breakdown: dict, risk_flags: List[str], insuff
         if breakdown["decision_info"]["score"] <= 3:
             missing.append("决策链")
         if missing:
-            return f"继续资格确认，优先补齐{'、'.join(missing)}，并争取一次短会换取明确下一步。"
+            return f"继续资格确认，优先补齐{'、'.join(missing)}，并争取一次短会换取明确的下一步动作。"
         return "推动一次短会或定向演示，把兴趣转成明确的试用、报价或技术对接动作。"
     if any("预算" in flag or "暂无计划" in flag for flag in risk_flags):
         return "降低优先级，转为 nurture 跟进，约定未来窗口再联系，避免继续投入重方案成本。"
-    return "维持轻量跟进，只发送简版资料；若客户没有新信号，不要继续重投入推进。"
+    return "维持轻量跟进，只发送简版资料；如果客户没有新信号，不要继续重投入推进。"
 
 
 def render_markdown(result: dict) -> str:
@@ -460,7 +435,7 @@ def build_result(path: Path, encoding: str, lines: List[dict], breakdown: dict, 
     evidence = pick_evidence(breakdown, bonuses, penalties)
     insufficient = information_insufficient(lines, evidence, matched)
     if insufficient:
-        penalties = penalties + [{"label": "信息不足", "points": 8, "evidence": []}]
+        penalties = penalties + [{"label": "淇℃伅涓嶈冻", "points": 8, "evidence": []}]
     total_score = compute_total_score(breakdown, bonuses, penalties)
     risk_flags = build_risk_flags(breakdown, matched, insufficient)
     level = determine_level(total_score, breakdown, severe_blocker, insufficient)
@@ -476,9 +451,9 @@ def build_result(path: Path, encoding: str, lines: List[dict], breakdown: dict, 
         "score_breakdown": {
             "total_score": total_score,
             "level_mapping": {
-                "high": ">= 70 且采购意愿/需求明确度达到高机会门槛，且无严重阻塞",
-                "medium": "35-69 或存在兴趣但预算/时间/决策链未补齐",
-                "low": "< 35，或出现明确拒绝、无预算、无计划等严重阻塞"
+                "high": ">= 70 且采购意愿与需求明确度达到高机会门槛，且无严重阻塞",
+                "medium": "35-69，或存在兴趣但预算、时间、决策链尚未补齐",
+                "low": "< 35，或出现明确拒绝、无预算、无计划等严重阻塞",
             },
             "dimensions": breakdown,
             "bonuses": bonuses,
@@ -550,3 +525,4 @@ def main() -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
+

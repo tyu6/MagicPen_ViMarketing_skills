@@ -1,5 +1,5 @@
 {
-  "input_file": "C:\\Users\\n0thing\\.openclaw\\workspace\\skills\\customer-inquiry\\customer-opportunity-grading\\examples\\medium-opportunity.txt",
+  "input_file": "D:\\Agent\\Skills\\ViMarketing_skills\\CustomerInfo Classification\\examples\\medium-opportunity.txt",
   "detected_encoding": "utf-8-sig",
   "customer_opportunity_level": "medium",
   "level_zh": "中机会客户",

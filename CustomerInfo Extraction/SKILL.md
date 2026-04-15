@@ -1,6 +1,18 @@
 ---
 name: CustomerInfo Extraction
-description: Extract structured customer profile data from sales, customer-service, account-management, or business-development conversation transcripts and export JSON plus Excel (.xlsx) for CRM import. Use when OpenClaw receives a path to a dialogue file such as .md, .txt, .log, .csv, .json, or another readable text source containing Chinese or mixed-language customer conversations, and needs conservative field extraction, confidence scoring, missing-field tracking, Markdown review output, or batch export.
+description: Extract structured customer profile data from sales, customer-service, account-management, or business-development conversation transcripts and export CRM-friendly JSON, Excel, and Markdown. Use when the input is a readable dialogue file or directory and the user wants conservative field extraction rather than a free-form summary.
+version: 1.1.0
+user-invocable: true
+argument-hint: "<input-file-or-dir> [--batch]"
+metadata:
+  author: ViMarketing
+  category: customer-ops
+  tags:
+    - crm
+    - extraction
+    - dialogue
+    - json
+    - excel
 ---
 
 # CustomerInfo Extraction
@@ -9,36 +21,33 @@ Use this skill to convert customer conversation records into structured customer
 
 ## Trigger Conditions
 
-Trigger this skill when all of the following are true:
+Use this skill when all of the following are true:
 
-- Input is a file path or directory containing customer dialogue text.
-- The goal is to extract customer information, not just summarize the conversation.
-- The user wants machine-readable output such as JSON, Excel, or both.
+- The input is a file path or directory containing customer dialogue text
+- The goal is to extract customer information, not just summarize the conversation
+- The user wants machine-readable output for downstream systems or review
 
 Do not use this skill for:
 
-- Audio, image, or scanned PDF inputs that require OCR or speech-to-text first.
-- Pure contract, invoice, or form extraction without conversational context.
-- Cases where the user wants a free-form sales summary but not structured records.
+- Audio, image, or scanned PDF inputs that require OCR or speech-to-text first
+- Pure invoice, contract, or form extraction without conversation context
+- Cases where the user only wants a free-form sales summary
 
 ## Accepted Inputs
 
-- Single file: `.md`, `.txt`, `.log`, `.csv`, `.json`, `.yaml`, `.yml`, `.srt`, or another readable text-like document.
-- Directory batch mode: pass a folder plus `--batch`.
-- The script attempts UTF-8, GBK, GB2312, GB18030, UTF-16, Big5, and Latin-1 decoding.
+- Single file: `.md`, `.txt`, `.log`, `.csv`, `.json`, `.yaml`, `.yml`, `.srt`, or another readable text-like document
+- Directory batch mode: pass a folder with `--batch`
+- The script attempts UTF-8, GBK, GB2312, GB18030, UTF-16, Big5, and Latin-1 decoding
 
 ## Processing Steps
 
-1. Confirm the path exists and is readable text.
-2. Clean obvious noise such as system notifications, join/leave messages, empty media placeholders, and duplicated quote markers.
-3. Parse timestamps, speaker labels, and likely customer-side utterances.
-4. Extract hard fields with rules first: phone, mobile, email, wechat, time, company, region, common titles.
-5. Use conservative semantic aggregation for soft fields: product interest, use case, pain points, current status, next step, summary, risk flags, opportunity level.
-6. Split into multiple records only when the file contains enough evidence of multiple customer identities; otherwise keep one row and explain uncertainty in `remarks`.
-7. Export:
-   - JSON: canonical record structure
-   - Excel: one row per record
-   - Markdown: optional review summary
+1. Confirm the path exists and is readable text
+2. Clean obvious noise such as system notices, join/leave messages, empty media placeholders, and duplicated quote markers
+3. Parse timestamps, speaker labels, and likely customer-side utterances
+4. Extract hard fields with rules first: phone, mobile, email, wechat, time, company, region, common titles
+5. Use conservative aggregation for soft fields: product interest, use case, pain points, current status, next step, risk flags, and opportunity level
+6. Split into multiple records only when there is enough evidence of multiple customer identities; otherwise keep one row and explain uncertainty in `remarks`
+7. Export the result set
 
 ## Command Usage
 
@@ -49,6 +58,12 @@ python scripts/extract_customer_to_excel.py <input_dir> --batch
 ```
 
 ## Output Contract
+
+The current script always writes three artifacts by default:
+
+- `JSON`
+- `Excel (.xlsx)`
+- `Markdown`
 
 Each record includes at least these fields in fixed order:
 
@@ -89,20 +104,20 @@ Each record includes at least these fields in fixed order:
 
 ## Field Rules
 
-- Prefer direct evidence from customer lines.
-- Leave unknown fields empty. Do not guess.
-- Use the latest, clearest, and most complete value if the same field appears multiple times.
-- If multiple conflicting values remain plausible, choose one conservatively and write the conflict into `remarks`.
-- Lower `confidence` when key fields are missing, conflicting, or only supported by weak cues such as nicknames.
-- Mark suspicious data in `risk_flags` or `remarks`, for example malformed phone numbers, invalid email format, or company names that look like nicknames.
+- Prefer direct evidence from customer lines
+- Leave unknown fields empty instead of guessing
+- Use the latest, clearest, and most complete value if the same field appears multiple times
+- If multiple conflicting values remain plausible, choose one conservatively and write the conflict into `remarks`
+- Lower `confidence` when key fields are missing, conflicting, or only weakly supported
+- Mark suspicious data in `risk_flags` or `remarks`
 
 ## Boundary Handling
 
-- No clear name/company/phone: keep the fields empty and lower confidence.
-- Only nickname exists: use it only if it looks like a stable identity; otherwise keep `customer_name` empty and mention nickname in `remarks`.
-- Multiple customers in one file: split when distinct names, phones, emails, or companies appear; otherwise export one row and note the ambiguity.
-- Mixed roles and unclear labels: rely on content plus rule evidence, but stay conservative.
-- Very short text: still export JSON and Excel, but include `信息不足` in `risk_flags` and lower confidence.
+- No clear name, company, or contact information: keep fields empty and lower confidence
+- Only a nickname exists: use it only when it looks like a stable identity; otherwise keep `customer_name` empty and mention it in `remarks`
+- Multiple customers in one file: split only when distinct names, phones, emails, or companies appear
+- Mixed roles and unclear labels: rely on content plus rule evidence, but stay conservative
+- Very short text: still export results, but include `信息不足` in `risk_flags` and reduce confidence
 
 ## Few-Shot Examples
 
@@ -184,8 +199,8 @@ Expected shape:
 
 Before returning results:
 
-- Confirm JSON fields are fixed and complete.
-- Confirm Excel column order matches the JSON field order.
-- Confirm missing fields are listed.
-- Confirm `remarks` records conflicts or split uncertainty.
-- Confirm no fabricated values were introduced.
+- Confirm JSON fields are fixed and complete
+- Confirm Excel column order matches the JSON field order
+- Confirm missing fields are listed
+- Confirm `remarks` records conflicts or split uncertainty
+- Confirm no fabricated values were introduced
